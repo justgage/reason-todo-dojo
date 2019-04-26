@@ -13,11 +13,7 @@ let make = () => {
   <div className=css##app>
     <header className=css##appHeader>
       <img src=logo className=css##appLogo alt="logo" />
-      <p>
-        {React.string("Edit ")}
-        <code> {React.string("src/App.re")} </code>
-        {React.string(" and save to reload.")}
-      </p>
+      <p> "REASON UTAH DOJO TODO LIST"->React.string </p>
       <a
         className=css##appLink
         href="https://reasonml.github.io/reason-react"
@@ -26,5 +22,6 @@ let make = () => {
         {React.string("Learn Reason React")}
       </a>
     </header>
+    <Todo />
   </div>;
 };
