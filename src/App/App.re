@@ -22,6 +22,6 @@ let make = () => {
         {React.string("Learn Reason React")}
       </a>
     </header>
-    <Todo />
+    <TodoList />
   </div>;
 };
