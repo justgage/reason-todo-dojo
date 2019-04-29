@@ -39,17 +39,25 @@ npm bs:watch
 
 (`bs` stands for BuckleScript the OCaml to JavaScript compiler that most Reason projects use).
 
+## ReasonML learning resources
+
+- Reason Offical Docs: https://reasonml.github.io
+- ReasonReact, bindings to React for ReasonML: https://reasonml.github.io/reason-react/docs/en/installation
+- Bucklescript (mostly usefull for writting JS bindings: https://bucklescript.github.io)
+- ReasonML Discord (chat like slack). This is great place to get questions answered fast: https://discordapp.com/invite/reasonml
+- Nice Medium article about tips for learning ReasonML: https://medium.com/@dangggdennis/15-tips-for-learning-reason-reasonml-bb844ad1be2b
+
 ## ReasonML for JS programmers
 
 There's a really great "Cheat Sheet" for JS to Reason Syntax. It's no replacement for
 actually learning the language but it's useful for people just trying to read ReasonML:
 https://reasonml.github.io/docs/en/syntax-cheatsheet
 
-## Reason Gotchas and new syntax
+### Reason Gotchas and new syntax
 
 Reason can look a lot like JavaScript in many ways, but there are quite a bit of differences as well.
 
-## double quotes, not single quotes
+### double quotes, not single quotes
 
 In ReasonML single quotes are reserved for a single character
 much like C and C++.
@@ -66,13 +74,13 @@ let a = 'something';
 let a = "something";
 ```
 
-## always put your `;`'s
+### always put your `;`'s
 
 JavaScript is very lax if you leave off a `;`, ReasonML, not so much. Most confusing syntax errors you get will be due to
 this. The auto-formatter will catch them in some cases but
 not very many.
 
-## `let` is `const`
+### `let` is `const`
 
 In Reason `let` is used instead of `const`. It works just the way you can't re-assign it, only shadow it.
 
@@ -118,7 +126,7 @@ let result =
   ->List.map(x => x - 2);
 ```
 
-## The Module System
+### The Module System
 
 Again, the [official docs](https://reasonml.github.io/docs/en/module) are better but
 here's a short explanation ReasonML's module system, as it's very different than JS.
@@ -162,7 +170,7 @@ At first this system may seem like anarchy but please just [give it (a metaphori
 get used to it. And for what it's worth it's how Facebook bundles all their
 JS because it's much faster to compile.
 
-## JSX differences
+### JSX differences
 
 In JavaScript you can just interpolate strings into your HTML
 without any syntax:
@@ -191,7 +199,7 @@ While this is a little less convenient this means
 that your props types are automatically inferred
 and enforced.
 
-## JSX punning
+### JSX punning
 
 Reason's JSX syntax has a lot of shortcuts for instance
 instead of writing:
@@ -206,7 +214,7 @@ You can simply write:
 <TodoList items />
 ```
 
-## String interpolation
+### String interpolation
 
 If you write very much modern JavaScript you've probably got used to using
 backticks for string interpolation:
@@ -228,6 +236,10 @@ In ReasonML everything is statically typed so this is not a danger.
 There is also a `{j|baseClass--$modifier|j}` syntax that provides [a limited
 form of interpolation](https://reasonml.github.io/docs/en/string-and-char#quoted-string)
 but isn't quite advanced as JS. I would use syntax like above for the the most part.
+
+### Much more...
+
+There's much more than I can cover here. Please see the learning resources above.
 
 ## Other stuff:
 
