@@ -43,6 +43,7 @@ npm bs:watch
 
 - Reason Offical Docs: https://reasonml.github.io
 - ReasonReact, bindings to React for ReasonML: https://reasonml.github.io/reason-react/docs/en/installation
+- A TODO list tutorial for ReasonReact: https://jaredforsyth.com/posts/a-reason-react-tutorial/
 - Bucklescript (mostly usefull for writting JS bindings: https://bucklescript.github.io)
 - ReasonML Discord (chat like slack). This is great place to get questions answered fast: https://discordapp.com/invite/reasonml
 - Nice Medium article about tips for learning ReasonML: https://medium.com/@dangggdennis/15-tips-for-learning-reason-reasonml-bb844ad1be2b
