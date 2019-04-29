@@ -45,7 +45,7 @@ let make = () => {
         );
       }}>
       <input type_="text" className="todoInput" />
-      <input className="button" type_="submit" value="Add" />
+      <input className="todoButton" type_="submit" value="Add" />
     </form>
   </div>;
 };
