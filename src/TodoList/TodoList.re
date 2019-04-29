@@ -16,33 +16,28 @@ let make = () => {
       |]
     );
 
+  let addTodo = () =>
+    setTodos(_previousTodos =>
+      [|
+        {
+          description: "Woops, you need to implement this part",
+          complete: false,
+        },
+      |]
+    );
+
   <div className="todoList">
-    <h1> "TODO"->React.string </h1>
-    {Array.mapWithIndex(todos, (index, {description, complete})
-       // Note: the {j| |j} syntax is used to interpolate strings (with $variableName)
-       // and it's used to handle unicode characters.
-       =>
-         <div
-           className={
-             "todo" ++ " " ++ (complete ? "todoComplete" : "todoIncomplete")
-           }
-           key={j|$index|j}>
-           description->React.string
-         </div>
+    <h1> "Do this"->React.string </h1>
+    {todos
+     ->Array.mapWithIndex((index, {description, complete}) =>
+         <TodoItem description complete key={j|$index|j} />
        )
      ->ReasonReact.array}
     <form
       className="todoInputForm"
       onSubmit={event => {
         ReactEvent.Form.preventDefault(event);
-        setTodos(_previousTodos =>
-          [|
-            {
-              description: "Woops, you need to implement this part",
-              complete: false,
-            },
-          |]
-        );
+        addTodo();
       }}>
       <input type_="text" className="todoInput" />
       <input className="todoButton" type_="submit" value="Add" />
