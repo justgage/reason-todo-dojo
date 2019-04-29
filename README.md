@@ -155,7 +155,7 @@ Basically it works like this:
 let three = Math.add(1,2);
 
 [@react.component]
-let make = () => <App>...</App>
+let make = () => <App>...</App>;
 ```
 
 All modules are Uppercase in naming, so if you name a file `app.re` or `App.re` then
