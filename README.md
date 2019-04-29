@@ -11,7 +11,7 @@ This is to teach basic Reason and the React bindings (called ReasonReact).
 
 ## Getting Started
 
-We recomend you use VSCode, you can search "reason" for an extension that supports Reason. We reccomend
+We recommend you use VSCode, you can search "reason" for an extension that supports Reason. We recommend
 `reason-vscode`.
 
 To get the app running you can do:
@@ -47,12 +47,34 @@ https://reasonml.github.io/docs/en/syntax-cheatsheet
 
 ## Reason Gotchas and new syntax
 
-Reason can look a lot like JavaScript, however it's quite a bit different.
+Reason can look a lot like JavaScript in many ways, but there are quite a bit of differences as well.
+
+## double quotes, not single quotes
+
+In ReasonML single quotes are reserved for a single character
+much like C and C++.
+
+```reasonml
+
+// single character OK
+let a = 's';
+
+// this is an error
+let a = 'something';
+
+// OK
+let a = "something";
+```
+
+## always put your `;`'s
+
+JavaScript is very lax if you leave off a `;`, ReasonML, not so much. Most confusing syntax errors you get will be due to
+this. The auto-formatter will catch them in some cases but
+not very many.
 
 ## `let` is `const`
 
-In Reason `let` is used instead of `const`. It works just the way you can't
-re-assign it, only shadow it.
+In Reason `let` is used instead of `const`. It works just the way you can't re-assign it, only shadow it.
 
 ```
 // similar to `const` in JS
@@ -66,8 +88,7 @@ a = 2;
 let a = 2;
 ```
 
-For the most part you shouldn't need any mutable variables but if you _really_ do
-there's ways to do it in the [ReasonML docs](https://reasonml.github.io/docs/en/mutation).
+For the most part you shouldn't need any mutable variables but if you _really_ do there's ways to do it in the [ReasonML docs](https://reasonml.github.io/docs/en/mutation).
 
 ### The `->` operator.
 
@@ -80,115 +101,133 @@ it lets you call function in a chaining style:
 open Belt;
 
 // you could do this, but what do you name the variables???
-let i = [1, 2, 3];
-let ii = List.map(i, x => x * 2);
-let iii = List.map(ii, x => x - 2);
+let values = [1, 2, 3];
+let valuesTimesTwo = List.map(i, x => x * 2);
+let result = List.map(ii, x => x - 2);
 
 // terser, but not very readable
-List.map(
+let result = List.map(
   List.map([1, 2, 3], x => x * 2),
   x => x - 2
-)
+);
 
-// More readable, compiles to the thing above
-[1, 2, 3]
+// More readable, compiles to the thing as above
+let result =
+  [1, 2, 3]
   ->List.map(x => x * 2)
-  ->List.map(x => x - 2)
+  ->List.map(x => x - 2);
 ```
 
-## JSX differences
+## The Module System
 
-Because ReasonML is statically typed you have to specify
+Again, the [official docs](https://reasonml.github.io/docs/en/module) are better but
+here's a short explanation ReasonML's module system, as it's very different than JS.
 
-```reason
-<TodoList items> "This is a Todo component"->React.string</Items>
-```
+In JavaScript to use another module you have to explicitly import it using it's file-path.
+Meaning you have to point Webpack to the actual file like `../App/App.js`.
 
-## Reasons Module System
-
-Again, the [official docs](https://reasonml.github.io/docs/en/module) are better
-than this short explanation but ReasonML's module system is very different from JS.
-
-In JavaScript it's file-path based. Meaning you have to point Webpack to the
-actual file using folder paths like `./App/App.js`. For example:
+For example:
 
 ```JS
 import App from "./App/App.js";
 import Math from '../lib/Math.js"
 
-const three = Math.add(1, 2);
-<App>...</App>
+export const three = Math.add(1, 2);
+
+const make = () => <App>...</App>;
+
+export default make;
 ```
 
-In contrast ReasonML is a _global non-path based system_. Basically it works like this:
+In contrast ReasonML **just uses the filename and ignores where it is in the folder structure.**
+Basically it works like this:
 
 ```reason
-// no imports! Just access the modules directly
+// no imports or exports! Just access the modules directly.
 let three = Math.add(1,2);
-<App>...</App>
+
+[@react.component]
+let make = () => <App>...</App>
 ```
 
-You just forget the imports, and it finds it because the filename is `App.re` and `Math.re`!
+All modules are Uppercase in naming, so if you name a file `app.re` or `App.re` then
+it will become immediately available to other modules (always prefer `App.re` to avoid
+confusion though).
 
-To fully understand this I have a few "rules":
+Also exports are gone because by default everything is public inside a module. While
+learning I wouldn't worry about this fact, but just know there is ways to make mark
+things as private by creating a `.rei` file.
 
-### 1. The file names are module names
+At first this system may seem like anarchy but please just [give it (a metaphorical) "five minutes"](https://signalvnoise.com/posts/3124-give-it-five-minutes). It's actually very convenient to use once you
+get used to it. And for what it's worth it's how Facebook bundles all their
+JS because it's much faster to compile.
 
-What you name you're file **_is_** the module name of the file in Reason. Meaning if you have a file named `Math.re`
-that looked like this:
+## JSX differences
+
+In JavaScript you can just interpolate strings into your HTML
+without any syntax:
+
+```javascript
+<div>This is a Todo component</div>
+```
+
+Because ReasonML is statically typed you have to transform
+strings and other data structures into the `React.component` type.
+We use methods like `React.string` or `React.array` to do this.
 
 ```reasonml
-// util/Math.re
+// you have to turn the string into a component
+<div>
+  {React.string("This is a Todo component")}
+</div>
 
-let add = (x, y) => x + y;
+// also often written like this:
+<div>
+  "This is a Todo component"->React.string
+</div>
 ```
 
-you can refer to that in _any other file_ by just doing this:
+While this is a little less convenient this means
+that your props types are automatically inferred
+and enforced.
+
+## JSX punning
+
+Reason's JSX syntax has a lot of shortcuts for instance
+instead of writing:
 
 ```reasonml
-// any other reason file:
-let two = Math.add(1,3);
+<TodoList items={items} />
 ```
 
-While you _can_ name files like `inThisWay.re` and it will uppercase the first letter but
-I would highly recommend you do it `InThisFashion.re` (first letter uppercase) due to to the fact that module names **must** always start with an uppercase letter, so
-this removes indirection.
+You can simply write:
 
-#### 2. Module names (thus filenames) must be **globally unique.**
+```reasonml
+<TodoList items />
+```
 
-When you name a file in ReasonML it's name must be **globally unique**!. Meaning if you name a file
-`TodoList.re`, no other file may be names that same thing. You may have this kind of reaction:
+## String interpolation
 
-> this is crazy unsaleable!!!
+If you write very much modern JavaScript you've probably got used to using
+backticks for string interpolation:
 
-To which I say, **then Facebook is un-scalable** then because that's how they do it (even with their JavaScript projects).
+```js
+const className = `baseClass--${active ? 'active' : 'inactive'}`;
+```
 
-When it comes to _build speed_ it's actually a **lot more scalable.** It's one of the primary reasons
-that ReasonML is the fastest alt-JS compilers out there. It literally can start up and finish in seconds,
-even milliseconds in many cases.
+In ReasonML you would normally do something like this:
 
-You might say,
+```reasonml
+let className = "baseClass--" ++ (active ? "active" : "inactive");
+```
 
-> _"What about libraries? Wouldn't that cause a lot of conflicts?"_
+In Javascript it's bad practice to use `+` because it can make strings
+that _look_ like [numbers actually act like numbers](http://2ality.com/2013/04/quirk-implicit-conversion.html)!
+In ReasonML everything is statically typed so this is not a danger.
 
-the compiler for Reason (bsb) can scope your package name so every module is prefixed with the name of your library. There's also a [good article about how to name things in a more namespace friendly way](https://dev.to/yawaramin/a-modular-ocaml-project-structure-1ikd). I think this is overkill for most personal and even company projects, but it's nice for libraries.
-
-Also as a benefit it makes things much easier to use `⌘-P` (`Ctrl-P` on windows) to find files. No problem with every file named `index.js`.
-
-### 3. Everything in modules is auto-exported
-
-You don't have to add explicit exports because by default everything is auto-exported! If you want to limit what you export you need to create a
-`.rei` file. Read about doing this here.
-
-#### 4. Folders don't have any scope, only files.
-
-Putting a `.re` file into a folder doesn't do anything. However, the Reason compiler will look into folders just in case so long as you configure it to in the `bsconfig.json` file.
-
-**Note**: However interop with JS breaks this fact because JS _does_ care about files.
-
-#### 4. Modules have a lots of super powers
-
-Modules are really powerfull in ReasonML (really OCaml), read the offical docs for more cool stuff.
+There is also a `{j|baseClass--$modifier|j}` syntax that provides [a limited
+form of interpolation](https://reasonml.github.io/docs/en/string-and-char#quoted-string)
+but isn't quite advanced as JS. I would use syntax like above for the the most part.
 
 ## Other stuff:
 

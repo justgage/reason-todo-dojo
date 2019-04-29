@@ -1,4 +1,4 @@
-[@bs.module] external css: Js.t({..}) as 'a = "./App.module.css";
+WebpackHelper.requireCss("./App.css");
 
 /* The snippet below is what we'd like to have, but it doesn't seem to play
  * well with BuckleScript code generation, because we'd need the default
@@ -10,12 +10,12 @@ let logo = [%bs.raw {|require('./logo.svg')|}];
 
 [@react.component]
 let make = () => {
-  <div className=css##app>
-    <header className=css##appHeader>
-      <img src=logo className=css##appLogo alt="logo" />
+  <div className="app">
+    <header className="appHeader">
+      <img src=logo className="appLogo" alt="logo" />
       <p> "REASON UTAH DOJO TODO LIST"->React.string </p>
       <a
-        className=css##appLink
+        className="appLink"
         href="https://reasonml.github.io/reason-react"
         target="_blank"
         rel="noopener noreferrer">

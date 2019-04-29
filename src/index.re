@@ -1,4 +1,4 @@
-[@bs.module] external _css: Js.t({..}) as 'a = "./index.module.css";
+let _ = WebpackHelper.requireCss("./index.css");
 
 [@bs.module "./serviceWorker"]
 external register_service_worker: unit => unit = "register";

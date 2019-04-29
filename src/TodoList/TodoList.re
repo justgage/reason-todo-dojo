@@ -1,5 +1,5 @@
+WebpackHelper.requireCss("./Todo.css");
 open Belt;
-[@bs.module] external css: Js.t({..}) as 'a = "./Todo.module.css";
 
 type todo = {
   description: string,
@@ -16,10 +16,7 @@ let make = () => {
       |]
     );
 
-  <div
-    className={
-      css##todoList;
-    }>
+  <div className="todoList">
     <h1> "TODO"->React.string </h1>
     {Array.mapWithIndex(todos, (index, {description, complete})
        // Note: the {j| |j} syntax is used to interpolate strings (with $variableName)
@@ -27,7 +24,7 @@ let make = () => {
        =>
          <div
            className={
-             css##todo ++ " " ++ (complete ? css##complete : css##incomplete)
+             "todo" ++ " " ++ (complete ? "todoComplete" : "todoIncomplete")
            }
            key={j|$index|j}>
            description->React.string
@@ -35,7 +32,7 @@ let make = () => {
        )
      ->ReasonReact.array}
     <form
-      className={css##inputForm}
+      className="todoInputForm"
       onSubmit={event => {
         ReactEvent.Form.preventDefault(event);
         setTodos(_previousTodos =>
@@ -47,8 +44,8 @@ let make = () => {
           |]
         );
       }}>
-      <input type_="text" className={css##input} />
-      <input className={css##button} type_="submit" value="Add" />
+      <input type_="text" className="todoInput" />
+      <input className="button" type_="submit" value="Add" />
     </form>
   </div>;
 };
