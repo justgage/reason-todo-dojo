@@ -8,7 +8,7 @@ type todo = {
 
 [@react.component]
 let make = () => {
-  let (todos, setTodos) =
+  let (todos: array(todo), setTodos) =
     React.useState(() =>
       [|
         {description: "Come to ReasonML dojo", complete: true},
@@ -28,11 +28,11 @@ let make = () => {
 
   <div className="todoList">
     <h1> "Do this"->React.string </h1>
-    {todos
-     ->Array.mapWithIndex((index, {description, complete}) =>
+    {ReasonReact.array(
+       Array.mapWithIndex(todos, (index, {description, complete}) =>
          <TodoItem description complete key={j|$index|j} />
-       )
-     ->ReasonReact.array}
+       ),
+     )}
     <form
       className="todoInputForm"
       onSubmit={event => {

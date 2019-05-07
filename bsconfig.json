@@ -4,6 +4,11 @@
     {
       "dir": "src",
       "subdirs": true
+    },
+    {
+      "dir": "cypress",
+      "subdirs": true,
+      "dev": true
     }
   ],
   "bs-dependencies": ["reason-react", "@glennsl/bs-jest"],

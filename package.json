@@ -4,8 +4,8 @@
   "private": true,
   "dependencies": {
     "@glennsl/bs-jest": "^0.4.8",
-    "bs-platform": "^5.0.3",
-    "cra-reason-template": "0.1.1",
+    "bs-platform": "^5.0.4",
+    "cra-reason-template": "0.1.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "reason-react": "^0.7.0"
@@ -17,7 +17,8 @@
     "eject": "react-scripts eject",
     "bs:make": "bsb -make-world",
     "bs:watch": "bsb -make-world -w",
-    "bs:clean": "bsb -clean-world"
+    "bs:clean": "bsb -clean-world",
+    "cy": "cypress open"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -27,5 +28,10 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "add": "^2.0.6",
+    "cypress": "^3.2.0",
+    "yarn": "^1.15.2"
+  }
 }
