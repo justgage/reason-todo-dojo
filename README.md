@@ -124,7 +124,3 @@ let three = Math.add(1,2);
 You just forget the imports, and it finds it because the filename is `App.re` and `Math.re`!
 
 If you have more questions about this, just ask! It can be confusing at times.
-
-## Other stuff:
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
