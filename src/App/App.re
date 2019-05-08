@@ -6,13 +6,12 @@ WebpackHelper.requireCss("./App.css");
  *
  * [@bs.module] external logo: string = "./logo.svg";
  */
-let logo = [%bs.raw {|require('./logo.svg')|}];
 
 [@react.component]
 let make = () => {
   <div className="app">
     <header className="appHeader">
-      <img src=logo className="appLogo" alt="logo" />
+      <Logo />
       <p> "REASON UTAH DOJO TODO LIST"->React.string </p>
       <a
         className="appLink"

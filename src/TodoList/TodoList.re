@@ -8,7 +8,7 @@ type todo = {
 
 [@react.component]
 let make = () => {
-  let (todos: array(todo), setTodos) =
+  let (todos, setTodos) =
     React.useState(() =>
       [|
         {description: "Come to ReasonML dojo", complete: true},
@@ -27,18 +27,22 @@ let make = () => {
     );
 
   <div className="todoList">
-    <h1> "Do this"->React.string </h1>
-    {ReasonReact.array(
-       Array.mapWithIndex(todos, (index, {description, complete}) =>
-         <TodoItem description complete key={j|$index|j} />
-       ),
-     )}
+    <h1> "Please do this"->React.string </h1>
+    {
+      React.array(
+        Array.mapWithIndex(todos, (index, {description, complete}) =>
+          <TodoItem description complete key={j|$index|j} />
+        ),
+      )
+    }
     <form
       className="todoInputForm"
-      onSubmit={event => {
-        ReactEvent.Form.preventDefault(event);
-        addTodo();
-      }}>
+      onSubmit={
+        event => {
+          ReactEvent.Form.preventDefault(event);
+          addTodo();
+        }
+      }>
       <input type_="text" className="todoInput" />
       <input className="todoButton" type_="submit" value="Add" />
     </form>
