@@ -116,7 +116,7 @@ const three = Math.add(1, 2);
 In contrast ReasonML is a _global non-path based system_. Basically it works like this:
 
 ```reason
-// no imports! Just access the modules directly
+/* no imports! Just access the modules directly */
 let three = Math.add(1,2);
 <App>...</App>
 ```
