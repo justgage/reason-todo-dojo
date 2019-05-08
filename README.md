@@ -11,8 +11,11 @@ This is to teach basic Reason and the React bindings (called ReasonReact).
 
 ## Getting Started
 
-We recomend you use VSCode, you can search "reason" for an extension that supports Reason. We reccomend
-`reason-vscode`.
+#### Setting up VSCode:
+
+We recommend you use VSCode, you can search "reasonml" for an extension that supports Reason. We recommend: "OCaml and Reason IDE"
+
+#### Getting the app running
 
 To get the app running you can do:
 
@@ -21,14 +24,9 @@ npm i
 npm start
 ```
 
-If you're not using the VSCode extension mentioned above you'll also have to run the
-ReasonML compiler in a separate terminal window:
+Then open up http://localhost:1414
 
-```bash
-npm bs:watch
-```
-
-(`bs` stands for BuckleScript the OCaml to JavaScript compiler that most Reason projects use).
+---
 
 ## ReasonML for JS programmers
 
@@ -40,6 +38,13 @@ https://reasonml.github.io/docs/en/syntax-cheatsheet
 
 Reason can look a lot like JavaScript, however it's quite a bit different.
 
+## No single quotes
+
+In ReasonML everything is double quotes. No more fights, just get used to it.
+
+Single quotes are reserved for a single character like in C, and C++. This is not very useful
+in JavaScript however if you compile ReasonML to native it can be nice.
+
 ## `let` is `const`
 
 In Reason `let` is used instead of `const`.
@@ -47,28 +52,34 @@ In Reason `let` is used instead of `const`.
 For the most part you shouldn't need any mutable variables but if you _really_ do
 there's ways to do it in the [ReasonML docs](https://reasonml.github.io/docs/en/mutation).
 
+## Don't forget your `;`'s
+
+Again, ReasonML doesn't allow you to omit semicolons, you just have to get used to it if you're used to leaving
+them off. Currently the parser can get pretty confused when you omit them so make sure to look for them as it's
+one of the most common source of hard to read compiler errors.
+
 ### The `->` operator.
 
 Reason has a cool operator called "Pipe first" or sometimes "Fast Pipe". Basically
-it lets you call function in a chaining style:
+it lets you call any group of functions in a chaining style:
 
 ```reason
-// this is BuckleScript standard library, List is in it and many other modules
-// that support "Pipe First" style.
+/* this is BuckleScript standard library, List is in it and many other modules */
+/* that support "Pipe First" style. */
 open Belt;
 
-// you could do this, but what do you name the variables???
+ /* you could do this, but what do you name the variables??? */
 let i = [1, 2, 3];
 let ii = List.map(i, x => x * 2);
 let iii = List.map(ii, x => x - 2);
 
-// terser, but not very readable
+/* terser, but not very readable */
 let i = List.map(
   List.map([1, 2, 3], x => x * 2),
   x => x - 2
 )
 
-// More readable and compiles to the thing above
+/* More readable and compiles to the thing above */
 let i =
   [1, 2, 3]
   ->List.map(x => x * 2)
