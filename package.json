@@ -1,31 +1,36 @@
 {
-  "name": "todo",
+  "name": "todo-reason-dojo",
   "version": "0.1.0",
-  "private": true,
+  "scripts": {
+    "build": "bsb -make-world",
+    "start:bsb": "bsb -make-world -w",
+    "start": "bsb -clean-world && concurrently -n \"WEBPACK,REASON\" \"npm:server\" \"npm:start:bsb\"",
+    "clean": "bsb -clean-world",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "webpack": "webpack -w",
+    "webpack:production": "NODE_ENV=production webpack",
+    "server": "webpack-dev-server",
+    "deploy": "yarn run build && yarn run webpack:production && npx surge surge -d podium-ports.surge.sh -p build"
+  },
+  "keywords": [
+    "BuckleScript"
+  ],
+  "author": "",
+  "license": "MIT",
   "dependencies": {
-    "@glennsl/bs-jest": "^0.4.8",
-    "bs-platform": "^5.0.3",
-    "cra-reason-template": "0.1.1",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
+    "concurrently": "^4.1.0",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
     "reason-react": "^0.7.0"
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "bs:make": "bsb -make-world",
-    "bs:watch": "bsb -make-world -w",
-    "bs:clean": "bsb -clean-world"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ]
+  "devDependencies": {
+    "@glennsl/bs-jest": "^0.4.8",
+    "bs-platform": "5.0.1",
+    "css-loader": "^2.1.0",
+    "html-webpack-plugin": "^3.2.0",
+    "style-loader": "^0.23.1",
+    "webpack": "^4.0.1",
+    "webpack-cli": "^3.1.1",
+    "webpack-dev-server": "^3.1.8"
+  }
 }

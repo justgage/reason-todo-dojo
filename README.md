@@ -17,13 +17,6 @@ We recomend you use VSCode, you can search "reason" for an extension that suppor
 To get the app running you can do:
 
 ```
-yarn install
-yarn start
-```
-
-Or with NPM:
-
-```
 npm i
 npm start
 ```
@@ -32,8 +25,6 @@ If you're not using the VSCode extension mentioned above you'll also have to run
 ReasonML compiler in a separate terminal window:
 
 ```bash
-yarn bs:watch
-# or
 npm bs:watch
 ```
 
@@ -72,13 +63,14 @@ let ii = List.map(i, x => x * 2);
 let iii = List.map(ii, x => x - 2);
 
 // terser, but not very readable
-List.map(
+let i = List.map(
   List.map([1, 2, 3], x => x * 2),
   x => x - 2
 )
 
-// More readable, compiles to the thing above
-[1, 2, 3]
+// More readable and compiles to the thing above
+let i =
+  [1, 2, 3]
   ->List.map(x => x * 2)
   ->List.map(x => x - 2)
 ```
@@ -89,11 +81,10 @@ Because ReasonML is statically typed (in a way that doesn't allow polymorphism) 
 
 ```reasonml
 <div>
-  {React.string("Way 1")}  
+  {React.string("Way 1")}
   "Way 2"->React.string
 </div>
 ```
-
 
 ## Reasons Module System
 
@@ -121,7 +112,7 @@ let three = Math.add(1,2);
 
 You just forget the imports, and it finds it because the filename is `App.re` and `Math.re`!
 
-If you have more questions about this, just ask! It can be confusing at times. 
+If you have more questions about this, just ask! It can be confusing at times.
 
 ## Other stuff:
 
