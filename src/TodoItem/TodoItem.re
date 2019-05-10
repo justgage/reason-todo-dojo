@@ -1,12 +1,11 @@
-open Todo;
-
 [@react.component]
-let make = (~complete, ~description, ~onClick) => {
-  let completeClass =
-    switch (complete) {
-    | Complete => "todoComplete"
-    | NotStarted => "todoIncomplete"
-    };
+let make =
+    (
+      ~complete: bool,
+      ~description: string,
+      ~onClick: ReactEvent.Mouse.t => unit,
+    ) => {
+  let completeClass = complete ? "todoComplete" : "todoIncomplete";
 
   <div onClick className={j|todo $completeClass|j}>
     description->React.string
