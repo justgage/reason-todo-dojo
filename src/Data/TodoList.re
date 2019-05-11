@@ -1,49 +1,72 @@
 open Belt;
-type todo = {description: string};
 
-type index = int;
+type id = int;
+type todo = {
+  description: string,
+  isComplete: bool,
+  id,
+};
 
 type t = {
-  pendingTodos: array(todo),
-  doneTodos: array(todo),
+  nextId: int,
+  todos: Belt_MapInt.t(todo),
 };
 
-let empty = () => {pendingTodos: [||], doneTodos: [||]};
+let empty = () => {nextId: 0, todos: Belt_MapInt.empty};
+
+let rec range = (start: int, end_: int) =>
+  if (start >= end_) {
+    [];
+  } else {
+    [start, ...range(start + 1, end_)];
+  };
 
 let fromList = list => {
-  pendingTodos:
-    list
-    ->Belt.List.map(description => {description: description})
-    ->Belt.List.toArray,
-  doneTodos: [||],
+  ...empty(),
+  todos:
+    range(0, List.length(list))
+    ->Belt.List.zip(list)
+    ->Belt.List.map(((id, description)) =>
+        (id, {id, description, isComplete: false})
+      )
+    ->Belt.List.toArray
+    ->Belt_MapInt.fromArray,
 };
 
-let todoToTuple = (state: bool, {description}) => (state, description);
+let filterTodoByStatus = (todos, status) =>
+  todos
+  ->Belt_MapInt.toArray
+  ->Belt.Array.map(((_todoId, todo)) => todo)
+  ->Belt.Array.keep(({isComplete}) => isComplete == status);
 
-let todosToTuples = (todos, isDone) =>
-  todos->Belt.Array.map(todoToTuple(isDone));
+let getDone = ({todos}: t) => filterTodoByStatus(todos, true);
 
-let getDone = ({doneTodos}: t) => todosToTuples(doneTodos, true);
-
-let getPending = ({pendingTodos}: t) => todosToTuples(pendingTodos, false);
+let getPending = ({todos}: t) => filterTodoByStatus(todos, false);
 
 let toArray = (todos: t) =>
   Array.concat(getPending(todos), getDone(todos));
 
-let addTodo = (todos: t, description: string) => {
-  ...todos,
-  pendingTodos:
-    Array.concat(todos.pendingTodos, [|{description: description}|]),
+let addTodo = (todoList: t, description: string) => {
+  nextId: todoList.nextId + 1,
+  todos:
+    todoList.todos
+    ->Belt_MapInt.set(
+        todoList.nextId,
+        {id: todoList.nextId, description, isComplete: false},
+      ),
 };
 
-let moveToDone = ({doneTodos, pendingTodos} as todos: t, index: int) =>
-  switch (Belt.Array.get(pendingTodos, index)) {
-  | Some(todo) =>
-    let newPending = Array.keepWithIndex(pendingTodos, (_, i) => i != index);
-    let newDone = Array.concat(doneTodos, [|todo|]);
-    {doneTodos: newDone, pendingTodos: newPending};
-  | None => todos
-  };
+let moveToDone = (todoList, index: int) => {
+  ...todoList,
+  todos:
+    Belt_MapInt.update(
+      todoList.todos,
+      index,
+      fun
+      | Some(todo) => Some({...todo, isComplete: true})
+      | x => x,
+    ),
+};
 
 /* let moveToPending = ({doneTodos, pendingTodos} as todos: t, index: int) =>
    Belt.(

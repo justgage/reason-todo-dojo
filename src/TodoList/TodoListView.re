@@ -2,7 +2,10 @@ WebpackHelper.requireCss("./Todo.css");
 
 [@react.component]
 let make = () => {
-  let (todos, setTodos) = React.useState(() => TodoList.empty());
+  let (todos, setTodos) =
+    React.useState(() =>
+      TodoList.fromList(["learn some ReasonML", "Own the demo"])
+    );
 
   let (todoInput, setTodoInput) = React.useState(() => "");
 
@@ -11,20 +14,19 @@ let make = () => {
     setTodoInput(_ => "");
   };
 
-  let toggleTodo = (i: int) =>
-    setTodos(todos => TodoList.moveToDone(todos, i));
+  let toggleTodo = i => setTodos(todos => TodoList.moveToDone(todos, i));
 
   <div className="todoList">
     <h1> "Please do this"->React.string </h1>
     {
       React.array(
-        Belt.Array.mapWithIndex(
-          TodoList.toArray(todos), (index, (complete, description)) =>
+        Belt.Array.map(
+          TodoList.toArray(todos), ({id, isComplete, description}) =>
           <TodoItem
-            onClick={_event => toggleTodo(index)}
+            onClick={_event => toggleTodo(id)}
             description
-            complete
-            key={j|$index|j}
+            complete=isComplete
+            key={j|$id|j}
           />
         ),
       )
