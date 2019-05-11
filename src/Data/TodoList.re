@@ -22,7 +22,7 @@ let rec range = (start: int, end_: int) =>
   };
 
 let fromList = list => {
-  ...empty(),
+  nextId: List.length(list),
   todos:
     range(0, List.length(list))
     ->Belt.List.zip(list)
@@ -33,18 +33,15 @@ let fromList = list => {
     ->Belt_MapInt.fromArray,
 };
 
+let toArray = ({todos}: t) =>
+  todos->Belt_MapInt.toArray->Belt.Array.map(((_todoId, todo)) => todo);
+
 let filterTodoByStatus = (todos, status) =>
-  todos
-  ->Belt_MapInt.toArray
-  ->Belt.Array.map(((_todoId, todo)) => todo)
-  ->Belt.Array.keep(({isComplete}) => isComplete == status);
+  todos->toArray->Belt.Array.keep(({isComplete}) => isComplete == status);
 
-let getDone = ({todos}: t) => filterTodoByStatus(todos, true);
+let getDone = (todos: t) => filterTodoByStatus(todos, true);
 
-let getPending = ({todos}: t) => filterTodoByStatus(todos, false);
-
-let toArray = (todos: t) =>
-  Array.concat(getPending(todos), getDone(todos));
+let getPending = (todos: t) => filterTodoByStatus(todos, false);
 
 let addTodo = (todoList: t, description: string) => {
   nextId: todoList.nextId + 1,
@@ -56,6 +53,28 @@ let addTodo = (todoList: t, description: string) => {
       ),
 };
 
+let toggleTodo = (todoList, index: int) => {
+  ...todoList,
+  todos:
+    Belt_MapInt.update(
+      todoList.todos,
+      index,
+      fun
+      | Some(todo) => Some({...todo, isComplete: !todo.isComplete})
+      | x => x,
+    ),
+};
+let moveToPending = (todoList, index: int) => {
+  ...todoList,
+  todos:
+    Belt_MapInt.update(
+      todoList.todos,
+      index,
+      fun
+      | Some(todo) => Some({...todo, isComplete: false})
+      | x => x,
+    ),
+};
 let moveToDone = (todoList, index: int) => {
   ...todoList,
   todos:
@@ -67,15 +86,3 @@ let moveToDone = (todoList, index: int) => {
       | x => x,
     ),
 };
-
-/* let moveToPending = ({doneTodos, pendingTodos} as todos: t, index: int) =>
-   Belt.(
-     switch (pendingTodos[index]) {
-     | Some(todo) =>
-       let newPending =
-         Belt.Array.keepWithIndex(pendingTodos, (_, i) => i == index);
-       let newDone = Array.concat(doneTodos, [||]);
-       {doneTodos: newDone, pendingTodos: newPending};
-     | None => todos
-     }
-   ); */

@@ -13,7 +13,9 @@ type todo = {
 
 let moveToDone: (t, id) => t;
 
-/* let moveToPending: (t, index) => t; */
+let moveToPending: (t, id) => t;
+
+let toggleTodo: (t, id) => t;
 
 let addTodo: (t, string) => t;
 
