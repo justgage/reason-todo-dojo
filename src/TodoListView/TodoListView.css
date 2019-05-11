@@ -9,6 +9,29 @@
   padding: 2rem;
 }
 
+.todoListTabs {
+  display: flex;
+}
+
+.todoListTab {
+  width: 33%;
+  border-radius: 9999px;
+  transition: background-color 0.125s ease-in-out, color 0.125s ease-in-out;
+  padding: 0.5em;
+  border: 0;
+  outline: 0;
+}
+
+.todoListTab--active {
+  color: white;
+  background-color: lightcoral;
+}
+
+.todoListTab:hover {
+  background-color: lightcoral;
+  color: white;
+}
+
 .todo {
   margin: 0.25rem 0;
   padding: 0.5rem;

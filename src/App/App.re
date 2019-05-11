@@ -8,7 +8,7 @@ WebpackHelper.requireCss("./App.css");
  */
 
 [@react.component]
-let make = () => {
+let make = () =>
   <div className="app">
     <header className="appHeader">
       <Logo />
@@ -21,6 +21,5 @@ let make = () => {
         {React.string("Learn Reason React")}
       </a>
     </header>
-    <TodoList />
+    <TodoListView />
   </div>;
-};
