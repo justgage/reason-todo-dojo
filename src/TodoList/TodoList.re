@@ -1,5 +1,4 @@
 WebpackHelper.requireCss("./Todo.css");
-open Belt;
 
 type todo = {
   description: string,
@@ -30,7 +29,7 @@ let make = () => {
     <h1> "Please do this"->React.string </h1>
     {
       React.array(
-        Array.mapWithIndex(todos, (index, {description, complete}) =>
+        Belt.Array.mapWithIndex(todos, (index, {description, complete}) =>
           <TodoItem description complete key={j|$index|j} />
         ),
       )
