@@ -9,29 +9,31 @@ type todo = {
 let make = () => {
   let (todos, setTodos) =
     React.useState(() =>
-      [|
+      [
         {description: "Come to ReasonML dojo", complete: true},
         {description: "Learn Reason!", complete: false},
-      |]
+      ]
     );
 
   let addTodo = () =>
     setTodos(_previousTodos =>
-      [|
+      [
         {
           description: "Woops, you need to implement this part",
           complete: false,
         },
-      |]
+      ]
     );
 
   <div className="todoList">
     <h1> "Please do this"->React.string </h1>
     {
       React.array(
-        Belt.Array.mapWithIndex(todos, (index, {description, complete}) =>
-          <TodoItem description complete key={j|$index|j} />
-        ),
+        todos
+        ->Belt.List.mapWithIndex((index, {description, complete}) =>
+            <TodoItem description complete key={j|$index|j} />
+          )
+        ->Belt.List.toArray,
       )
     }
     <form
