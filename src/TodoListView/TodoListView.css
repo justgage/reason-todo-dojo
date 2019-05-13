@@ -7,6 +7,14 @@
   margin-top: 5rem;
   box-shadow: 0px 0px 5px 5px rgb(238, 238, 238);
   padding: 2rem;
+  min-height: 400px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-grow {
+  flex-grow: 1;
 }
 
 .todoListTabs {
@@ -14,7 +22,8 @@
 }
 
 .todoListTab {
-  width: 33%;
+  width: 100%;
+  max-width: 300px;
   border-radius: 9999px;
   transition: background-color 0.125s ease-in-out, color 0.125s ease-in-out;
   padding: 0.5em;

@@ -56,34 +56,47 @@ let make = () => {
       </button>
     </div>
     {
-      React.array(
-        Belt.Array.map(todos, ({id, isComplete, description}) =>
-          <TodoItem
-            onClick={_event => toggleTodo(id)}
-            description
-            complete=isComplete
-            key={j|$id|j}
-          />
-        ),
-      )
+      todos->Array.length == 0 ?
+        switch (tab) {
+        | AllTab =>
+          React.string("No Todos, add some by typing in the box below")
+        | PendingTab => React.string("You did them all! Good job!")
+        | DoneTab =>
+          React.string("No Todos in the history, please look at other tabs")
+        } :
+        React.array(
+          Belt.Array.map(todos, ({id, isComplete, description}) =>
+            <TodoItem
+              onClick={_event => toggleTodo(id)}
+              description
+              complete=isComplete
+              key={j|$id|j}
+            />
+          ),
+        )
     }
-    <form
-      className="todoInputForm"
-      onSubmit={
-        event => {
-          ReactEvent.Form.preventDefault(event);
-          addTodo();
-        }
-      }>
-      <input
-        type_="text"
-        className="todoInput"
-        value=todoInput
-        onChange={
-          event => setTodoInput(ReactEvent.Form.target(event)##value)
-        }
-      />
-      <input className="todoButton" type_="submit" value="Add" />
-    </form>
+    <div className="flex-grow" />
+    {
+      tab != DoneTab ?
+        <form
+          className="todoInputForm"
+          onSubmit={
+            event => {
+              ReactEvent.Form.preventDefault(event);
+              addTodo();
+            }
+          }>
+          <input
+            type_="text"
+            className="todoInput"
+            value=todoInput
+            onChange={
+              event => setTodoInput(ReactEvent.Form.target(event)##value)
+            }
+          />
+          <input className="todoButton" type_="submit" value="Add" />
+        </form> :
+        React.null
+    }
   </div>;
 };

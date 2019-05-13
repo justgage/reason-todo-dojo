@@ -1,10 +1,13 @@
+/*
+ * Implementation file for a Todo list type. See .rei file for docs.
+ */
 open Belt;
 
 type id = int;
 type todo = {
+  id,
   description: string,
   isComplete: bool,
-  id,
 };
 
 type t = {
@@ -86,3 +89,5 @@ let moveToDone = (todoList, index: int) => {
       | x => x,
     ),
 };
+
+let isEmpty = ({todos}) => Belt_MapInt.isEmpty(todos);
