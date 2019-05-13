@@ -26,6 +26,27 @@ npm start
 
 Then open up http://localhost:1414
 
+
+## Goal 1: Adding Todo items
+
+Basically you want to be able to add todo items to the todo list by typing something into the box and clicking add or pushing enter. Example:
+
+![Adding things](https://cl.ly/071c5b571d20/download/Screen%252520Recording%2525202019-05-13%252520at%25252006.39%252520AM.gif)
+
+**Hints:**
+
+There's a lot of usefull functions in `Belt` which is like a lodash for any ReasonML project.
+
+Namely here's a few useful ones:
+
+```reason
+List.concat([1,2,3], [4, 5, 6]) /* will return [1, 2, 3, 4, 5, 6] */
+
+List.concat([1,2,3], [4, 5, 6]) /* will return [1, 2, 3, 4, 5, 6] */
+```
+
+Solution: https://github.com/justgage/reason-todo-dojo/pull/3/files
+
 ---
 
 ## ReasonML for JS programmers
@@ -51,6 +72,18 @@ In Reason `let` is used instead of `const`.
 
 For the most part you shouldn't need any mutable variables but if you _really_ do
 there's ways to do it in the [ReasonML docs](https://reasonml.github.io/docs/en/mutation).
+
+## Automatic returns
+
+There's no `return` keyword in ReasonML. The last line of a function always returns:
+
+```reasonml
+
+let add = (x, y) => {
+  let solution = x + y;
+  solution; /* <- this get's automatically returned */
+}
+```
 
 ## Don't forget your `;`'s
 
