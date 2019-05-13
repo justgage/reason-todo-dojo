@@ -10,7 +10,7 @@
     "webpack": "webpack -w",
     "webpack:production": "NODE_ENV=production webpack",
     "server": "webpack-dev-server",
-    "deploy": "yarn run build && yarn run webpack:production && npx surge surge -d utah-reason-todo.surge.sh -p build"
+    "deploy": "npm run build && npm run webpack:production && npx surge surge -p build"
   },
   "keywords": [
     "BuckleScript"
@@ -29,6 +29,7 @@
     "css-loader": "^2.1.0",
     "html-webpack-plugin": "^3.2.0",
     "style-loader": "^0.23.1",
+    "surge": "^0.20.4",
     "webpack": "^4.0.1",
     "webpack-cli": "^3.1.1",
     "webpack-dev-server": "^3.1.8"
