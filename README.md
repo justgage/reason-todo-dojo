@@ -40,14 +40,72 @@ There's a lot of usefull functions in `Belt` which is like a lodash for any Reas
 Namely here's a few useful ones:
 
 ```reason
-List.concat([1,2,3], [4, 5, 6]) /* will return [1, 2, 3, 4, 5, 6] */
+/* This will add something to the front of a list */
+List.add([1,2,3], -1) /* will return [-1, 1, 2, 3] */
 
+/* this will add something to the back of the list */
 List.concat([1,2,3], [4, 5, 6]) /* will return [1, 2, 3, 4, 5, 6] */
 ```
 
-Solution: https://github.com/justgage/reason-todo-dojo/pull/3/files
+Solution: https://github.com/justgage/reason-todo-dojo/pull/4/files
+
+## Goal 2: Checking off items on the list
+
+At this step you'll want to check items off the list. 
+
+**Tip 1:**
+
+the `[]` by default are immutable linked lists. Indexing into them to change them doesn't work.
+
+Try using `Belt.List.mapWithIndex` to change one item. The type signiture is:
+
+```reasonml
+let mapWithIndex: (list(todo), (int, todo) => todo) => list;
+```
+
+**Tip 2:**
+
+To update one item of a record you do it like this:
+
+```
+{...record, thing: "new value"}
+```
+
+**Gotcha 2:**
+
+the onClick function on dom element **must** take an event so if you don't care about this event so if you do this:
+
+```reasonml
+// ERROR! typing () means you're passing "unit", which isn't compatible with the event type.
+<div onClick={() => Js.log("I clicked!")}></div>
+```
+
+It will throw an error! So you have to do this:
+
+```reasonml
+/* throwing a `_` in front of a variable name lets ReasonML know that you want to ignore it. */
+<div onClick={_ignoredEvent => Js.log("I clicked!")}></div>
+```
+
+Solution: https://github.com/justgage/reason-todo-dojo/pull/5/files
+
+
+## Stretch Goal: Items in tabs
+
+In this you should have tabs at the top of the todo list that you can sort them by either done, pending or all.
+
+Example: 
+
+![gif of clicking tabs](https://cl.ly/c7204f56e62f/Screen%252520Recording%2525202019-05-13%252520at%25252007.28%252520AM.gif)
+
+This one is more of a stretch goal so I won't provide any tips but try to use a variant type to model your tabs: https://reasonml.github.io/docs/en/variant
 
 ---
+
+<br />
+<br />
+<br />
+
 
 ## ReasonML for JS programmers
 
