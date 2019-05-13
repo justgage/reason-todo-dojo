@@ -18,14 +18,14 @@ let make = () => {
     );
 
   let addTodo = () =>
-    setTodos(_previousTodos =>
-      [
-        {
-          description: "Woops, you need to implement this part",
-          complete: false,
-        },
-      ]
-    );
+    setTodos(previousTodos => {
+      setTodoInput(_oldInput => "");
+
+      Belt.List.concat(
+        previousTodos,
+        [{description: todoInput, complete: false}],
+      );
+    });
 
   <div className="todoList">
     <h1> "Please do this"->React.string </h1>
