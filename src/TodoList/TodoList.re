@@ -18,13 +18,24 @@ let make = () => {
     );
 
   let addTodo = () =>
-    setTodos(_previousTodos =>
-      [
-        {
-          description: "Woops, you need to implement this part",
-          complete: false,
-        },
-      ]
+    setTodos(previousTodos => {
+      setTodoInput(_oldInput => "");
+
+      Belt.List.concat(
+        previousTodos,
+        [{description: todoInput, complete: false}],
+      );
+    });
+
+  let toggleTodo = indexToToggle =>
+    setTodos(todos =>
+      Belt.List.mapWithIndex(todos, (i, todo) =>
+        if (i == indexToToggle) {
+          {...todo, complete: !todo.complete};
+        } else {
+          todo;
+        }
+      )
     );
 
   <div className="todoList">
@@ -33,7 +44,12 @@ let make = () => {
       React.array(
         todos
         ->Belt.List.mapWithIndex((index, {description, complete}) =>
-            <TodoItem description complete key={j|$index|j} />
+            <TodoItem
+              description
+              onClick={_ => toggleTodo(index)}
+              complete
+              key={j|$index|j}
+            />
           )
         ->Belt.List.toArray,
       )
