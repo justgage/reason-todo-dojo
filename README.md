@@ -26,6 +26,14 @@ npm start
 
 Then open up http://localhost:1414
 
+#### Mob timer
+
+If you're going to switch off with other people we reccomend a mob timer to help you remember to switch. Pick whatever
+- In browser: https://agility.jahed.io/timer.html
+- Mac app: http://mobster.cc/
+
+# Goals
+
 ## Goal 1: Adding Todo items
 
 Basically you want to be able to add todo items to the todo list by typing something into the box and clicking add or pushing enter. Example:
