@@ -52,6 +52,8 @@ Solution: https://github.com/justgage/reason-todo-dojo/pull/4/files
 
 At this step you'll want to check items off the list.
 
+![Checking off items](https://cl.ly/c9d5ce5bc519/download/Screen%252520Recording%2525202019-05-13%252520at%25252010.23%252520AM.gif)
+
 **Tip 1:**
 
 the `[]` by default are immutable linked lists. Indexing into them to change them doesn't work.
