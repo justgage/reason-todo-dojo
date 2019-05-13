@@ -13,7 +13,9 @@ This is to teach basic Reason and the React bindings (called ReasonReact).
 
 #### Setting up VSCode:
 
-We recommend you use VSCode, you can search "reasonml" for an extension that supports Reason. We recommend: "OCaml and Reason IDE"
+We recommend you use VSCode, you can search "reasonml" for an extension that supports Reason. We recommend: ["OCaml and Reason IDE"](https://marketplace.visualstudio.com/items?itemName=freebroccolo.reasonml)
+
+![Click the Top result of searching "reason" or if on Windows, the second.](https://cl.ly/7568476b5d2e/Image%2525202019-05-13%252520at%25252010.29.49%252520AM.png)
 
 #### Getting the app running
 
