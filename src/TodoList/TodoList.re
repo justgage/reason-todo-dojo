@@ -27,13 +27,29 @@ let make = () => {
       );
     });
 
+  let toggleTodo = indexToToggle =>
+    setTodos(todos =>
+      Belt.List.mapWithIndex(todos, (i, todo) =>
+        if (i == indexToToggle) {
+          {...todo, complete: !todo.complete};
+        } else {
+          todo;
+        }
+      )
+    );
+
   <div className="todoList">
     <h1> "Please do this"->React.string </h1>
     {
       React.array(
         todos
         ->Belt.List.mapWithIndex((index, {description, complete}) =>
-            <TodoItem description complete key={j|$index|j} />
+            <TodoItem
+              description
+              onClick={_ => toggleTodo(index)}
+              complete
+              key={j|$index|j}
+            />
           )
         ->Belt.List.toArray,
       )
