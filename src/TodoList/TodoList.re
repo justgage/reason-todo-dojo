@@ -7,6 +7,8 @@ type todo = {
 
 [@react.component]
 let make = () => {
+  let (todoInput, setTodoInput) = React.useState(() => "");
+
   let (todos, setTodos) =
     React.useState(() =>
       [
@@ -44,7 +46,13 @@ let make = () => {
           addTodo();
         }
       }>
-      <input type_="text" className="todoInput" />
+      <input
+        type_="text"
+        className="todoInput"
+        onChange={
+          event => setTodoInput(ReactEvent.Form.target(event)##value)
+        }
+      />
       <input className="todoButton" type_="submit" value="Add" />
     </form>
   </div>;
