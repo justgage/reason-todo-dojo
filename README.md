@@ -1,4 +1,4 @@
-# Todo list challenge
+# Todo list Kata (code challenge)
 
 The challenge is to create a todo list that you can:
 
@@ -26,7 +26,6 @@ npm start
 
 Then open up http://localhost:1414
 
-
 ## Goal 1: Adding Todo items
 
 Basically you want to be able to add todo items to the todo list by typing something into the box and clicking add or pushing enter. Example:
@@ -51,7 +50,7 @@ Solution: https://github.com/justgage/reason-todo-dojo/pull/4/files
 
 ## Goal 2: Checking off items on the list
 
-At this step you'll want to check items off the list. 
+At this step you'll want to check items off the list.
 
 **Tip 1:**
 
@@ -89,23 +88,31 @@ It will throw an error! So you have to do this:
 
 Solution: https://github.com/justgage/reason-todo-dojo/pull/5/files
 
-
 ## Stretch Goal: Items in tabs
 
 In this you should have tabs at the top of the todo list that you can sort them by either done, pending or all.
 
-Example: 
+Example:
 
 ![gif of clicking tabs](https://cl.ly/c7204f56e62f/Screen%252520Recording%2525202019-05-13%252520at%25252007.28%252520AM.gif)
 
 This one is more of a stretch goal so I won't provide any tips but try to use a variant type to model your tabs: https://reasonml.github.io/docs/en/variant
+
+## Show off your stuff
+
+Please show off your stuff by making pushing up a PR or deploying it here:
+
+```
+npm run deploy
+```
+
+Then post your solutions in the UtahJS #reasonml channel: https://slack.utahjs.com/
 
 ---
 
 <br />
 <br />
 <br />
-
 
 ## ReasonML for JS programmers
 
