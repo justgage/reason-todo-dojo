@@ -10,7 +10,7 @@
     "webpack": "webpack -w",
     "webpack:production": "NODE_ENV=production webpack",
     "server": "webpack-dev-server",
-    "deploy": "yarn run build && yarn run webpack:production && npx surge surge -d podium-ports.surge.sh -p build"
+    "deploy": "yarn run build && yarn run webpack:production && npx surge surge -d utah-reason-todo.surge.sh -p build"
   },
   "keywords": [
     "BuckleScript"
